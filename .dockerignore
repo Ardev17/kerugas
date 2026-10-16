@@ -1,0 +1,11 @@
+# Setembro 2026 — o `vendor` é sempre reinstalado dentro do contentor
+# (composer install no Dockerfile.backend); copiar o do Windows traria
+# extensões/caminhos de outra plataforma.
+vendor
+node_modules
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+.env
+*.log
