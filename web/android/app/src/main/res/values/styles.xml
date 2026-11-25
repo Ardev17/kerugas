@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+        <!-- Fundo claro por trás do WebView: nunca um clarão preto entre o
+             splash e o primeiro ecrã. -->
+        <item name="android:windowBackground">@color/splashBackground</item>
+    </style>
+
+    <!--
+      Splash (Setembro 2026). Android 12+ usa a API de splash do sistema:
+      o ícone do app ao centro, sobre fundo branco (o mesmo do ícone, para a
+      transição ser contínua). Android 7–11 usa a imagem @drawable/splash
+      gerada por `npm run android:assets` a partir de apps/web/assets/.
+    -->
+    <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
+        <item name="android:background">@drawable/splash</item>
+        <item name="windowSplashScreenBackground">@color/splashBackground</item>
+        <!-- Sem windowSplashScreenAnimatedIcon de propósito: o sistema usa
+             o ícone adaptativo do app, que já tem as margens certas para o
+             círculo visível do splash (192dp de 288dp). A camada frontal
+             crua seria cortada nos bordos. -->
+        <item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>
+    </style>
+</resources>

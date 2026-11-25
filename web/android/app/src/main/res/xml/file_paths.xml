@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Setembro 2026: o modelo do Capacitor expunha TODO o armazenamento
+  externo (<external-path path=".">) através do FileProvider. O KeruGás
+  só partilha ficheiros que ele próprio gera na sua cache (exportações
+  CSV/PDF, ver src/lib/download.ts), por isso só isso fica acessível.
+-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path name="kerugas_cache" path="." />
+</paths>

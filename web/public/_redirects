@@ -1,0 +1,16 @@
+# Netlify (hospedagem grátis de testes, Outubro 2026),o mesmo que o nginx de produção:
+# ficheiros reais e páginas públicas pré-geradas (/como-funciona → como-funciona.html)
+# são servidos primeiro; todas as outras rotas recebem a casca _app.html.
+# (O nginx de produção ignora este ficheiro.)
+# Endereços antigos → novos (301), Outubro 2026
+/find  /encontrar-gas  301
+/map  /mapa  301
+/order  /pedir-gas  301
+/how-it-works  /como-funciona  301
+/about  /sobre  301
+/contact  /contacto  301
+/terms  /termos  301
+/privacy  /privacidade  301
+/station/:id  /postos/:id  301
+
+/*  /_app.html  200

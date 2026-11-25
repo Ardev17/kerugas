@@ -1,19 +1,44 @@
-/.phpunit.cache
-/node_modules
-/public/build
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
+# Node
+node_modules/
+dist/
+.vite/
+
+# PHP / Laravel
+vendor/
 .env
-.env.backup
-.env.production
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-auth.json
-npm-debug.log
-yarn-error.log
-/.fleet
-/.idea
-/.vscode
+# Configurações locais (ex.: apps/web/.env.android.local com o URL do túnel
+# ngrok para testar o app),nunca vão para o repositório.
+*.local
+storage/*.key
+bootstrap/cache/*
+
+# Let's Encrypt (Setembro 2026),certificados e chaves privadas emitidos
+# em produção por infrastructure/nginx/init-letsencrypt.sh; nunca devem ir
+# para o repositório.
+infrastructure/certbot/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# App iPhone (Outubro 2026),chaves e ficheiros secretos da Apple/Firebase
+*.p8
+AuthKey_*.p8
+GoogleService-Info.plist
+*.mobileprovision
+*.p12
+codemagic_private_key*
+
+
+
+
+.env.*
+!.env.example
+
+api/aplicar-correcoes.php
+api/diagnostico-404.php
+api/*.bak

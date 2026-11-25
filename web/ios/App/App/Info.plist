@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CAPACITOR_DEBUG</key>
+	<string>$(CAPACITOR_DEBUG)</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>pt</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>pt</string>
+	</array>
+	<key>CFBundleDisplayName</key>
+        <string>KeruGás</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+    <false/>
+    <key>UISceneConfigurations</key>
+    <dict>
+      <key>UIWindowSceneSessionRoleApplication</key>
+      <array>
+        <dict>
+            <key>UISceneConfigurationName</key>
+            <string>Default Configuration</string>
+            <key>UISceneDelegateClassName</key>
+            <string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+            <key>UISceneStoryboardFile</key>
+            <string>Main</string>
+        </dict>
+      </array>
+    </dict>
+	</dict>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+
+	<!--
+	  Frases mostradas pelo iPhone quando o app pede cada permissão (Outubro 2026).
+	  A Apple RECUSA o app se faltar alguma destas frases ou se forem vagas:
+	  têm de dizer para que serve. Em português, como o resto do app.
+	-->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>O KeruGás usa a sua localização para mostrar os postos com gás mais perto de si, se o pedir, partilhá-la com os seus vizinhos nos Vizinhos KeruGás e, se for condutor, para receber as entregas mais perto de si.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Só para condutores: a KeruGás partilha a sua localização, também com a app fechada, com o Super Admin e o Admin Provincial, para lhe enviarem as entregas mais perto de si. Pode parar no Painel do Condutor.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>O KeruGás usa a câmara para tirar a sua foto de perfil.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>O KeruGás acede às suas fotos para escolher a sua foto de perfil.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>O KeruGás só guarda uma foto na galeria se você o pedir.</string>
+
+	<!-- Push (APNs): permite receber a notificação com o app fechado. -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+		<string>location</string>
+	</array>
+
+	<!--
+	  O app só usa a cifra HTTPS do sistema (isenta). Declarar isto evita que o
+	  App Store Connect pergunte "criptografia" em CADA build enviada.
+	-->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+</dict>
+</plist>

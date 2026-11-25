@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">KeruGás</string>
+    <string name="title_activity_main">KeruGás</string>
+    <string name="package_name">ao.kerugas.app</string>
+    <string name="custom_url_scheme">ao.kerugas.app</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paleta KeruGás (tailwind.config.ts) -->
+    <color name="colorPrimary">#11264B</color>
+    <color name="colorPrimaryDark">#0F172A</color>
+    <color name="colorAccent">#FC7201</color>
+    <color name="kerugasNotification">#FC7201</color>
+    <color name="splashBackground">#11264B</color>
+</resources>

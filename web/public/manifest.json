@@ -1,0 +1,15 @@
+{
+  "name": "KeruGás",
+  "short_name": "KeruGás",
+  "description": "Encontre gás. Poupe tempo. Decida melhor.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#11264B",
+  "theme_color": "#11264B",
+  "icons": [
+    { "src": "/branding/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/branding/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/branding/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/branding/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

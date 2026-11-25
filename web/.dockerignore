@@ -1,0 +1,13 @@
+# Setembro 2026,sem este ficheiro, o `COPY . .` do Dockerfile.frontend
+# copiava o node_modules do computador de quem faz o build (ex: Windows)
+# POR CIMA do que o contentor Linux acabou de instalar, e o build falhava
+# com binários nativos da plataforma errada (esbuild/rollup).
+node_modules
+dist
+# Projeto Android inteiro: não é preciso para o site, e pode conter a
+# chave de assinatura do app (*.jks) e o keystore.properties.
+android
+.env
+.env.*
+!.env.example
+*.log

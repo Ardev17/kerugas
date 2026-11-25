@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  Push (APNs). "development" é o valor que o Xcode escreve; ao arquivar para
+	  TestFlight/App Store, o perfil de distribuição troca-o por "production".
+	-->
+	<key>aps-environment</key>
+	<string>development</string>
+
+	<!--
+	  Universal Links: links https://www.kerugas.ao/pedido/..., /avaliar/...
+	  abrem direto no app. Exige o ficheiro /.well-known/apple-app-site-association
+	  no servidor (infrastructure/nginx/apple-app-site-association).
+	-->
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:www.kerugas.ao</string>
+		<string>applinks:kerugas.ao</string>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/((?!assets/|branding/).*)",
+      "destination": "/_app.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/find",
+      "destination": "/encontrar-gas",
+      "permanent": true
+    },
+    {
+      "source": "/map",
+      "destination": "/mapa",
+      "permanent": true
+    },
+    {
+      "source": "/order",
+      "destination": "/pedir-gas",
+      "permanent": true
+    },
+    {
+      "source": "/how-it-works",
+      "destination": "/como-funciona",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/sobre",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/contacto",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "/termos",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacidade",
+      "permanent": true
+    },
+    {
+      "source": "/station/:id",
+      "destination": "/postos/:id",
+      "permanent": true
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+Imagens das lojas (Outubro 2026)
+================================
+
+Usadas no rodapé do site e no botão "Baixar app":
+
+  google-play-icon.png  -> ícone do Google Play ("Brevemente no Google Play")
+  app-store-icon.png    -> ícone da App Store ("Brevemente na" / "Disponível na App Store")
+  google-play.png       -> selo "DISPONÍVEL NO Google Play" (quando a loja estiver ligada)
+
+Para trocar uma imagem, substitua o ficheiro mantendo o MESMO nome.
+As lojas ligam-se no .env do servidor (APP_ANDROID_PUBLISHED / APP_IOS_PUBLISHED).
