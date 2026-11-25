@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Enums;
+
+enum ReportReason: string
+{
+    case GAS_UNAVAILABLE = 'GAS_UNAVAILABLE';
+    case QUEUE_INCORRECT = 'QUEUE_INCORRECT';
+    case STATION_CLOSED = 'STATION_CLOSED';
+    case LOCATION_INCORRECT = 'LOCATION_INCORRECT';
+    case MISLEADING_INFORMATION = 'MISLEADING_INFORMATION';
+    case OTHER = 'OTHER';
+}
