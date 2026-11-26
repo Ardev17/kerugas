@@ -1,8 +1,16 @@
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent, type PointerEvent, type WheelEvent } from 'react'
+import { createPortal } from 'react-dom'
 import { ZoomIn, ZoomOut, X } from 'lucide-react'
 import { clampCrop, displayScale, sourceRect, MAX_ZOOM, MIN_ZOOM, type CropState } from '@/lib/crop'
 
-const VIEW = 288
+const VIEW_MAX = 288
+const VIEW_MIN = 200
+
+/** Lado do quadro de recorte: cabe no ecrã do telemóvel (margens + padding da janela). */
+function fitView(): number {
+  if (typeof window === 'undefined') return VIEW_MAX
+  return Math.round(Math.max(VIEW_MIN, Math.min(VIEW_MAX, window.innerWidth - 80)))
+}
 const OUTPUT_MAX = 1024
 const OUTPUT_MIN = 256
 
@@ -21,11 +29,12 @@ interface Props {
 /**
  * Passo de enquadramento da foto de perfil (Outubro 2026): arrastar para
  * posicionar e zoom para aproximar, num círculo. O resultado é um quadrado
- * redesenhado num canvas (máx. 1024 px),só essa versão é enviada, sem os
+ * redesenhado num canvas (máx. 1024 px) — só essa versão é enviada, sem os
  * metadados da foto original (EXIF/GPS). O servidor re-codifica de novo.
  */
 export function AvatarCropper({ file, busy = false, error, onCancel, onConfirm }: Props) {
   const titleId = useId()
+  const [VIEW, setView] = useState(fitView)
   const imgRef = useRef<HTMLImageElement>(null)
   const drag = useRef<{ id: number; x: number; y: number; start: CropState } | null>(null)
   const [src, setSrc] = useState<string | null>(null)
@@ -44,6 +53,22 @@ export function AvatarCropper({ file, busy = false, error, onCancel, onConfirm }
   }, [file])
 
   useEffect(() => {
+    const onResize = () => setView(fitView())
+    window.addEventListener('resize', onResize)
+    // Impede a página de fundo de deslocar enquanto a janela está aberta.
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('resize', onResize)
+      document.body.style.overflow = prev
+    }
+  }, [])
+
+  useEffect(() => {
+    if (dims) setState((st) => clampCrop(dims.w, dims.h, VIEW, st))
+  }, [VIEW, dims])
+
+  useEffect(() => {
     const onKey = (e: globalThis.KeyboardEvent) => {
       if (e.key === 'Escape' && !busy) onCancel()
     }
@@ -55,7 +80,7 @@ export function AvatarCropper({ file, busy = false, error, onCancel, onConfirm }
     (next: CropState) => {
       if (dims) setState(clampCrop(dims.w, dims.h, VIEW, next))
     },
-    [dims],
+    [dims, VIEW],
   )
 
   const onLoad = () => {
@@ -122,7 +147,7 @@ export function AvatarCropper({ file, busy = false, error, onCancel, onConfirm }
       ctx.imageSmoothingQuality = 'high'
       ctx.drawImage(img, sx, sy, size, size, 0, 0, out, out)
 
-      // JPEG: todos os navegadores geram e qualquer servidor (GD) lê,o envio
+      // JPEG: todos os navegadores geram e qualquer servidor (GD) lê — o envio
       // não depende de o servidor ter suporte WebP. O servidor re-codifica.
       const blob = await canvasToBlob(canvas, 'image/jpeg', 0.9)
       if (!blob || blob.size === 0) throw new Error('blob')
@@ -137,8 +162,11 @@ export function AvatarCropper({ file, busy = false, error, onCancel, onConfirm }
   const s = dims ? displayScale(dims.w, dims.h, VIEW, state.zoom) : 0
   const shownError = localError ?? error ?? null
 
-  return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-dark/60 p-4" role="presentation">
+  // Portal para o <body>: um cartão da página com transform/backdrop-filter
+  // prendia a janela dentro dele, e o resto da página ficava por cima.
+  return createPortal(
+    <div className="fixed inset-0 z-[1000] overflow-y-auto overscroll-contain bg-dark/60" role="presentation">
+      <div className="flex min-h-full items-center justify-center p-4">
       <div role="dialog" aria-modal="true" aria-labelledby={titleId} className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-xl">
         <div className="mb-3 flex items-center justify-between">
           <h2 id={titleId} className="text-lg font-bold text-dark">Enquadrar a foto</h2>
@@ -213,6 +241,8 @@ export function AvatarCropper({ file, busy = false, error, onCancel, onConfirm }
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </div>,
+    document.body,
   )
 }
