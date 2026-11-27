@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import SubscriptionNotice from '@/components/stations/SubscriptionNotice'
 import { useQuery } from '@tanstack/react-query'
-import { MapPin, PackagePlus, SlidersHorizontal, Bug, Copy, Check } from 'lucide-react'
+import { MapPin, PackagePlus, SlidersHorizontal } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useGeolocation } from '@/hooks/useGeolocation'
 import { stationService } from '@/services/stationService'
@@ -109,7 +109,7 @@ export default function FindGas() {
           <p className="mt-4 text-center text-xs text-gray">ou escolha a zona manualmente</p>
         )}
 
-        {/* Outubro 2026: sempre visíveis,o cliente escolhe a zona logo ao
+        {/* Outubro 2026: sempre visíveis — o cliente escolhe a zona logo ao
             entrar, sem ter de recusar primeiro a localização. */}
         <div className={`grid gap-3 sm:grid-cols-2 ${geo.status === 'granted' ? 'mt-4' : 'mt-2'}`}>
           <select
@@ -154,7 +154,6 @@ export default function FindGas() {
           Mostrar apenas postos com gás disponível
         </label>
 
-        <GeoDiagnostics geo={geo} />
       </div>
 
       <div className="mt-8">
@@ -188,74 +187,6 @@ export default function FindGas() {
           </div>
         )}
       </div>
-    </div>
-  )
-}
-
-/**
- * Painel "Detalhes técnicos" da localização (Novembro 2026). Fica recolhido
- * e só aparece depois de uma tentativa,serve para perceber, sobretudo no
- * iPhone, porque é que a localização não devolve coordenadas. Mostra o
- * caminho (plugin nativo ou navegador), se o plugin nativo está mesmo
- * registado no build, o erro em bruto do sistema, a precisão e o tempo.
- */
-function GeoDiagnostics({ geo }: { geo: ReturnType<typeof useGeolocation> }) {
-  const [open, setOpen] = useState(false)
-  const [copied, setCopied] = useState(false)
-  const d = geo.diagnostics
-
-  if (geo.status === 'idle' || !d) return null
-
-  const report = [
-    `estado: ${geo.status}`,
-    `plataforma: ${d.platform}`,
-    d.nativePluginAvailable === null ? null : `plugin nativo disponível: ${d.nativePluginAvailable ? 'sim' : 'NÃO'}`,
-    geo.latitude !== null ? `coordenadas: ${geo.latitude}, ${geo.longitude}` : 'coordenadas: (nenhuma)',
-    d.accuracyM !== null ? `precisão: ${d.accuracyM} m` : null,
-    d.tookMs !== null ? `tempo: ${d.tookMs} ms` : null,
-    geo.reason ? `motivo: ${geo.reason}` : null,
-    d.rawError ? `erro do sistema: ${d.rawError}` : null,
-    `passos: ${d.steps.join(' → ')}`,
-  ].filter(Boolean).join('\n')
-
-  const copy = () => {
-    void navigator.clipboard?.writeText(report).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    })
-  }
-
-  return (
-    <div className="mt-4 border-t border-gray/10 pt-3">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        className="flex items-center gap-1.5 text-xs text-gray hover:text-dark"
-      >
-        <Bug size={13} aria-hidden="true" />
-        {open ? 'Ocultar' : 'Ver'} detalhes técnicos da localização
-      </button>
-
-      {open && (
-        <div className="mt-2 rounded-lg bg-light/60 p-3">
-          {d.nativePluginAvailable === false && (
-            <p className="mb-2 rounded bg-danger/10 px-2 py-1.5 text-xs text-danger">
-              O plugin nativo de localização não está ativo neste build do app,é esta a causa provável no iPhone.
-              É preciso correr <code>npx cap sync ios</code> e reconstruir.
-            </p>
-          )}
-          <pre className="overflow-x-auto whitespace-pre-wrap break-words text-[11px] leading-relaxed text-dark">{report}</pre>
-          <button
-            type="button"
-            onClick={copy}
-            className="mt-2 flex items-center gap-1.5 text-xs font-medium text-primary"
-          >
-            {copied ? <Check size={13} aria-hidden="true" /> : <Copy size={13} aria-hidden="true" />}
-            {copied ? 'Copiado' : 'Copiar para enviar ao suporte'}
-          </button>
-        </div>
-      )}
     </div>
   )
 }
